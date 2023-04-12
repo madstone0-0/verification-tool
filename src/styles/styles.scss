@@ -1,0 +1,10 @@
+@import "./typography";
+@import "./variables";
+
+#root {
+    height: 100%;
+}
+
+body {
+    background-color: $background-color
+}

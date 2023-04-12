@@ -1,0 +1,9 @@
+$flex_basis: 0.33;
+$calc_flex_basis: (1- $flex_basis) * 4rem;
+$calc_border_rad: calc(0.25rem - 1px);
+
+$background_color: #e4e4e4;
+$main_dark: #ffe483;
+$main_light: #ffe483;
+$sec_dark: #ffe483;
+$sec_light: #ffe483;
