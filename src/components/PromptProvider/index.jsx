@@ -1,5 +1,5 @@
 import { Configuration, OpenAIApi } from "openai";
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { MODEL, PERSONA, TEMP } from "../constants";
 
 export const PromptContext = createContext();
@@ -24,36 +24,34 @@ const PromptProvider = ({ children }) => {
 
     const onPromptSubmit = (e) => {
         e.preventDefault();
-        // console.log({ prompt });
-        getResponse(prompt);
+        if (!prompt) return;
         updateLoadingState(true);
+        getResponse(prompt);
+        updateResponse("");
         updatePrompt("");
     };
 
-    const getResponse = async (prompt) => {
-        updatePrompts([...prompts, { role: "user", content: prompt }]);
-        console.log({ prompts });
+    const getResponse = async (newPrompt) => {
+        const currPrompts = [...prompts, { role: "user", content: newPrompt }];
+        const currResponses = [...responses];
         openai
             .createChatCompletion({
                 model: MODEL,
                 messages: [
-                    // { role: "system", content: `${PERSONA}` },
-                    ...prompts,
-                    ...responses,
+                    { role: "system", content: `${PERSONA}` },
+                    ...currPrompts,
+                    ...currResponses,
                 ],
                 temperature: TEMP,
                 max_tokens: 2048,
             })
             .then((res) => {
-                console.log(res.data.choices[0].message);
+                updatePrompts(currPrompts);
                 updateLoadingState(false);
-                updateResponse(res.data.choices[0].message);
-                updateResponses([
-                    ...responses,
-                    { role: "assistant", content: output },
-                ]);
-                console.log({ responses });
-                console.log({ output });
+                const currOutput = res.data.choices[0].message;
+                console.log({ currOutput });
+                updateResponse(currOutput.content.toString());
+                updateResponses([...responses, currOutput]);
             })
             .catch((err) => {
                 updateErrorState(err);
@@ -62,7 +60,14 @@ const PromptProvider = ({ children }) => {
 
     return (
         <PromptContext.Provider
-            value={{ onPromptChange, onPromptSubmit, prompt }}
+            value={{
+                onPromptChange,
+                onPromptSubmit,
+                prompt,
+                loading,
+                error,
+                output,
+            }}
         >
             {children}
         </PromptContext.Provider>
