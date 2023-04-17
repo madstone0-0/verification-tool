@@ -18,6 +18,7 @@ const Prompt = ({ onPromptChange, onPromptSubmit, prompt }) => {
                         multiline
                         minRows={5}
                         maxRows={10}
+                        placeholder="Enter health information here"
                         sx={{
                             width: { md: "50%", xs: "80%" },
                             borderRadius: 28,
