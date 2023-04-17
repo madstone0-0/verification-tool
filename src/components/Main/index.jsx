@@ -8,7 +8,7 @@ const Main = () => {
     const { onPromptChange, onPromptSubmit, prompt } = usePrompts();
     return (
         <div>
-            <Header title="Verifyx" />
+            <Header title="HealthVerifyx" />
             <Ask
                 prompt={prompt}
                 onPromptChange={onPromptChange}
