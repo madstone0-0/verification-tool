@@ -1,11 +1,11 @@
 import { Configuration, OpenAIApi } from "openai";
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
 import { MODEL, PERSONA, TEMP } from "../constants";
 
 export const PromptContext = createContext();
 
 const chatConfig = new Configuration({
-    apiKey: "[redacted]",
+    apiKey: import.meta.env.VITE_OPENAI_KEY,
 });
 
 const openai = new OpenAIApi(chatConfig);
