@@ -6,16 +6,12 @@ import { usePrompts } from "../hooks";
 import { Container } from "@mui/material";
 
 const Main = () => {
-    const { onPromptChange, onPromptSubmit, prompt, output, loading } =
-        usePrompts();
+    const { onPromptChange, onPromptSubmit } = usePrompts();
     return (
         <div>
             <Header title="HealthVerifyx" />
             <Container maxWidth="xl">
                 <Ask
-                    loading={loading}
-                    output={output}
-                    prompt={prompt}
                     onPromptChange={onPromptChange}
                     onPromptSubmit={onPromptSubmit}
                 />
