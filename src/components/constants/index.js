@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
 const MODEL = "gpt-3.5-turbo";
-const TEMP = 0.1;
+const TEMP = 0;
 const PERSONA =
     "You are a health verfication tool.\n" +
     'When asked what you are you will respond with "I am an AI health verification tool" verbatim.\n' +

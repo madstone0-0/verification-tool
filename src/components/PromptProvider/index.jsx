@@ -46,6 +46,7 @@ const PromptProvider = ({ children }) => {
                 max_tokens: 2048,
             })
             .then((res) => {
+                updateErrorState(null);
                 updatePrompts(currPrompts);
                 updateLoadingState(false);
                 const currOutput = res.data.choices[0].message;
@@ -55,6 +56,7 @@ const PromptProvider = ({ children }) => {
             })
             .catch((err) => {
                 updateErrorState(err);
+                updateLoadingState(false);
             });
     };
 
