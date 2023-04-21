@@ -11,6 +11,11 @@ const theme = createTheme({
         secondary: {
             main: "#AEFF8D",
         },
+        credibility: {
+            credible: "#388E3C",
+            unsure: "#D0A817",
+            notCredible: "#B12121",
+        },
     },
     breakpoints: {
         values: {
