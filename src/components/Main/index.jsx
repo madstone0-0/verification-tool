@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import GA4React from "ga-4-react";
 
 import Ask from "../Ask";
 import Header from "../Header";
