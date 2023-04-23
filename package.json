@@ -8,7 +8,8 @@
         "build": "vite build",
         "preview": "vite preview",
         "build-sass": "node ./node_modules/sass/sass.js ./src/styles/styles.scss ./src/styles/styles.css --update --load-path='./src' --style=expanded",
-        "watch-sass": "node ./node_modules/sass/sass.js ./src/styles/styles.scss ./src/styles/styles.css --update --load-path='./src' --style=expanded --watch"
+        "watch-sass": "node ./node_modules/sass/sass.js ./src/styles/styles.scss ./src/styles/styles.css --update --load-path='./src' --style=expanded --watch",
+        "surge-deploy": "npm run build && cd dist && surge && cd .."
     },
     "dependencies": {
         "@emotion/react": "^11.10.6",
