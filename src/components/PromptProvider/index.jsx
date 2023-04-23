@@ -22,6 +22,8 @@ const PromptProvider = ({ children }) => {
             .then((g4a) => {
                 console.log("Analytics loaded");
                 g4a.pageview(window.location.pathname + window.location.search);
+                g4a.gtag("js", new Date());
+                g4a.gtag("config", "G-17KR14R6PB");
             })
             .catch((err) => {
                 console.error(err);
