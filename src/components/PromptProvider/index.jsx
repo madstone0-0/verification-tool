@@ -1,6 +1,7 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { API_URL, COMPLETIONS, TOKEN } from "../constants";
 import axios from "axios";
+import GA4React from "ga-4-react";
 
 export const PromptContext = createContext();
 
@@ -13,12 +14,26 @@ const PromptProvider = ({ children }) => {
     const [loading, updateLoadingState] = useState(false);
     const [prompts, updatePrompts] = useState([]);
     const [responses, updateResponses] = useState([]);
+    const g4react = new GA4React("G-17KR14R6PB");
+
+    useEffect(() => {
+        g4react
+            .initialize()
+            .then((g4a) => {
+                console.log("Analytics loaded");
+                g4a.pageview(window.location.pathname + window.location.search);
+            })
+            .catch((err) => {
+                console.error(err);
+            }, 4000);
+    }, []);
 
     const onPromptChange = (e) => {
         return updatePrompt(e.target.value);
     };
 
     const onPromptSubmit = (e) => {
+        g4react.event("Submitted prompt", "Interactions");
         e.preventDefault();
         if (!prompt) return;
         updateLoadingState(true);
