@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { createRoot } from "react-dom/client";
+import GA4React from "ga-4-react";
 
 import AppThemeProvider from "./components/AppThemeProvider";
 import Main from "./components/Main";
@@ -18,3 +19,12 @@ root.render(
         </PromptProvider>
     </React.StrictMode>,
 );
+
+try {
+    setTimeout((_) => {
+        const ga4react = new GA4React("G-17KR14R6PB");
+        ga4react.initialize().catch((err) => console.error(err));
+    }, 4000);
+} catch (err) {
+    console.error(err);
+}
