@@ -1,14 +1,10 @@
-import { Configuration, OpenAIApi } from "openai";
-import React, { createContext, useState, useEffect } from "react";
-import { MODEL, PERSONA, TEMP } from "../constants";
+import React, { createContext, useState } from "react";
+import { API_URL, COMPLETIONS, TOKEN } from "../constants";
+import axios from "axios";
 
 export const PromptContext = createContext();
 
-const chatConfig = new Configuration({
-    apiKey: import.meta.env.VITE_OPENAI_KEY,
-});
-
-const openai = new OpenAIApi(chatConfig);
+const zip = (...rows) => [...rows[0]].map((_, c) => rows.map((row) => row[c]));
 
 const PromptProvider = ({ children }) => {
     const [prompt, updatePrompt] = useState("");
@@ -31,30 +27,29 @@ const PromptProvider = ({ children }) => {
         updatePrompt("");
     };
 
-    const getResponse = async (newPrompt) => {
+    const getResponse = (newPrompt) => {
         const currPrompts = [...prompts, { role: "user", content: newPrompt }];
         const currResponses = [...responses];
-        openai
-            .createChatCompletion({
-                model: MODEL,
-                messages: [
-                    { role: "system", content: `${PERSONA}` },
-                    ...currPrompts,
-                    ...currResponses,
-                ],
-                temperature: TEMP,
-                max_tokens: 2048,
+        let messages = [];
+        zip(currPrompts, currResponses).forEach((message) => {
+            messages.push(...message);
+        });
+        messages = messages.filter((message) => message != undefined);
+        axios
+            .post(`${API_URL}${COMPLETIONS}${TOKEN}`, messages, {
+                headers: { Authorization: "baller" },
             })
             .then((res) => {
+                updateErrorState(null);
                 updatePrompts(currPrompts);
                 updateLoadingState(false);
                 const currOutput = res.data.choices[0].message;
-                console.log({ currOutput });
                 updateResponse(currOutput.content.toString());
                 updateResponses([...responses, currOutput]);
             })
             .catch((err) => {
                 updateErrorState(err);
+                updateLoadingState(false);
             });
     };
 
