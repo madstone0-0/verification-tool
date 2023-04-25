@@ -1,8 +1,8 @@
+import { Alert, Box } from "@mui/material";
 import React from "react";
-import Response from "../Response";
 import Prompt from "../Prompt";
+import Response from "../Response";
 import { usePrompts } from "../hooks";
-import { Box } from "@mui/material";
 
 const Ask = ({ onPromptChange, onPromptSubmit }) => {
     const { output, loading, error, prompt } = usePrompts();
@@ -15,7 +15,17 @@ const Ask = ({ onPromptChange, onPromptSubmit }) => {
                 onPromptSubmit={onPromptSubmit}
             />
             {error ? (
-                <div>Error communicating with server please try again</div>
+                <Alert
+                    sx={{
+                        alignSelf: "center",
+                        display: "inline-flex",
+                        mx: "2px",
+                        mt: 2,
+                    }}
+                    severity="error"
+                >
+                    Error communicating with server please try again
+                </Alert>
             ) : output ? (
                 <Response output={output} />
             ) : (

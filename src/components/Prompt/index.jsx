@@ -1,6 +1,6 @@
+import { LoadingButton } from "@mui/lab";
 import { Stack, TextField } from "@mui/material";
 import React from "react";
-import { LoadingButton } from "@mui/lab";
 
 const Prompt = ({ onPromptChange, onPromptSubmit, prompt, loading }) => {
     return (
@@ -13,7 +13,7 @@ const Prompt = ({ onPromptChange, onPromptSubmit, prompt, loading }) => {
             >
                 <TextField
                     id="prompt-input"
-                    label="Enter health information here"
+                    label="Enter your health questions here"
                     variant="outlined"
                     multiline
                     minRows={5}
