@@ -1,6 +1,6 @@
+import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
 import { API_URL, COMPLETIONS, TOKEN } from "../constants";
-import axios from "axios";
 
 export const PromptContext = createContext();
 
@@ -24,7 +24,7 @@ const PromptProvider = ({ children }) => {
         updateLoadingState(true);
         getResponse(prompt);
         updateResponse("");
-        updatePrompt("");
+        // updatePrompt("");
     };
 
     const getResponse = (newPrompt) => {
